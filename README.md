@@ -1,5 +1,7 @@
 # PyTorch 经典卷积神经网络学习与实战：LeNet-5 & AlexNet
 
+![项目封面](./assets/images/front-cover.png)
+
 > **从全连接网络到卷积神经网络，从论文阅读到代码训练。**  
 > 本项目围绕 CNN 的核心思想、LeNet-5 的经典结构、AlexNet 的关键创新，以及基于 FashionMNIST 的模型训练流程展开。它不仅是一份代码实践，更是一段把“公式、论文、PPT、代码、训练日志”逐渐串起来的学习记录。
 
@@ -23,14 +25,20 @@
 
 ## 📥 学习资料整理
 
-| 资料           | 下载链接                                                     | 说明                                                         |
-| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| AlexNet 原论文 | [Download AlexNet Paper](./docs/AlexNet_2012_ImageNet_Classification.pdf) | ImageNet 经典论文，重点看 ReLU、Dropout、GPU 训练和大规模数据 |
-| LeNet-5 原论文 | [Download LeNet-5 Paper](./docs/LeNet5_Gradient_Based_Learning.pdf) | CNN 早期经典论文，重点看局部连接、权重共享和 LeNet-5 结构    |
-| 学习 PPT       | [Download Study PPT](./docs/PyTorch_CNN_LeNet_AlexNet_PPT.pdf) | 我整理的 CNN、LeNet、AlexNet 学习材料                        |
-| 训练代码       | [model_train.py](./src/model_train.py)                       | FashionMNIST 训练和验证流程                                  |
-| 测试代码       | [model_test.py](./src/model_test.py)                         | 加载最优模型并在测试集上评估                                 |
-| 模型代码       | [model.py](./src/model.py)                                   | LeNet 或 AlexNet 网络结构定义                                |
+| 资料 | 下载/查看链接 | 说明 |
+|---|---|---|
+| AlexNet 原论文 | [Download AlexNet Paper](<./assets/papers/【AlexNet】 imagenet-classification-with-deep-convolutional-neural-networks.pdf>) | ImageNet 经典论文，重点看 ReLU、Dropout、GPU 训练和大规模数据 |
+| LeNet-5 原论文 | [Download LeNet-5 Paper](<./assets/papers/【LeNet】 Gradient-Based Learning Applied.pdf>) | CNN 早期经典论文，重点看局部连接、权重共享和 LeNet-5 结构 |
+| 学习 PPT | [Download Study PPT](<./assets/ppt/Pytorch框架与经典卷积神经网络与实战(一).pdf>) | 我整理的 CNN、LeNet、AlexNet 学习材料 |
+| LeNet 模型代码 | [LeNet/model.py](./LeNet/model.py) | LeNet-5 网络结构定义 |
+| LeNet 训练代码 | [LeNet/model_train.py](./LeNet/model_train.py) | LeNet-5 在 FashionMNIST 上的训练与验证流程 |
+| LeNet 测试代码 | [LeNet/model_test.py](./LeNet/model_test.py) | 加载 LeNet 最优模型并在测试集上评估 |
+| AlexNet 模型代码 | [AlexNet/model.py](./AlexNet/model.py) | AlexNet 网络结构定义 |
+| AlexNet 训练代码 | [AlexNet/model_train.py](./AlexNet/model_train.py) | AlexNet 在 FashionMNIST 上的训练与验证流程 |
+| AlexNet 测试代码 | [AlexNet/model_test.py](./AlexNet/model_test.py) | 加载 AlexNet 最优模型并在测试集上评估 |
+
+> 说明：论文放在 `assets/papers/`，PPT 放在 `assets/ppt/`，图片放在 `assets/images/`，代码分别放在 `LeNet/` 和 `AlexNet/` 目录下。
+
 
 ---
 
@@ -93,6 +101,10 @@ CNN 的思路就自然很多：
 
 ### 3. LeNet-5：CNN 的经典起点
 
+<p align="center">
+  <img src="./assets/images/lenet_structure.png" width="760" alt="LeNet structure">
+</p>
+
 LeNet-5 是早期卷积神经网络的代表模型，用于手写数字识别。它的思想非常清晰：
 
 ```mermaid
@@ -135,13 +147,19 @@ $$
 
 ### 4. AlexNet：深度 CNN 的突破
 
+<p align="center">
+  <img src="./assets/images/alexnet_structure.png" width="760" alt="AlexNet structure">
+</p>
+
+
+
 AlexNet 相比 LeNet 更深、更大，也更接近现代深度学习模型。论文中给我印象最深的几点是：
 
 - 使用 **ReLU** 替代 sigmoid/tanh，大幅加快训练速度；
 - 使用 **Dropout** 减少全连接层过拟合；
 - 使用 **最大池化** 替代平均池化，增强主要特征响应；
 - 使用**数据增强**提升模型鲁棒性；
-- 依靠 GPU 训练大规模网络，使深度 CNN 在 ImageNet 上取得突破。
+- 依靠 **GPU 训练**大规模网络，使深度 CNN 在 ImageNet 上取得突破。
 
 我在项目里也实现了一个适配 FashionMNIST 的 AlexNet 版本：
 
@@ -156,23 +174,44 @@ AlexNet 给我的最大启发是：
 
 ## 🗂️ 项目文件结构
 
-当前项目主要包含以下文件：
+目前仓库按照 **LeNet、AlexNet、assets 资源文件** 三部分来组织：两个模型的代码互不干扰，论文、PPT、图片也统一放在 `assets/` 里，README 引用起来更方便。
 
 ```text
-.
-├── model_train.py        # 训练与验证流程
-├── model_test.py         # 测试集评估流程
-├── model.py              # 模型结构定义，包含 LeNet 或 AlexNet 实现
-├── data/                 # FashionMNIST 数据集目录，运行后自动生成
-├── best_model.pth        # 训练后保存的最优模型参数
-└── README.md             # 项目说明文档
+PyTorch-CNN-1/
+├── README.md
+├── AlexNet/
+│   ├── __pycache__/
+│   ├── AlexNet_train_val_loss_acc.png
+│   ├── model.py
+│   ├── model_test.py
+│   └── model_train.py
+├── LeNet/
+│   ├── __pycache__/
+│   ├── LeNet_train_val_loss_acc.png
+│   ├── model.py
+│   ├── model_test.py
+│   ├── model_train.py
+│   └── plot.py
+└── assets/
+    ├── images/
+    │   ├── alexnet_structure.png
+    │   ├── alexnet_train_result.png
+    │   ├── front-cover.png
+    │   ├── lenet_structure.png
+    │   └── lenet_train_result.png
+    ├── papers/
+    │   ├── 【AlexNet】 imagenet-classification-with-deep-convolutional-neural-networks.pdf
+    │   └── 【LeNet】 Gradient-Based Learning Applied.pdf
+    └── ppt/
+        └── Pytorch框架与经典卷积神经网络与实战(一).pdf
 ```
+
 
 ---
 
 ## ⚙️ 环境配置
 
-建议使用 Python 3.8 及以上版本。
+建议使用 Python 3.8 及以上版本。项目主要基于 PyTorch 和 torchvision，其他库用于画图和查看模型结构。
 
 ```bash
 pip install torch torchvision pandas matplotlib torchsummary
@@ -182,31 +221,57 @@ pip install torch torchvision pandas matplotlib torchsummary
 
 | 库 | 用途 |
 |---|---|
-| `torch` | 搭建模型、损失函数、优化器、训练流程 |
+| `torch` | 搭建模型、定义损失函数、优化器和训练流程 |
 | `torchvision` | 下载和处理 FashionMNIST 数据集 |
-| `pandas` | 保存训练过程中的 loss 与 accuracy |
+| `pandas` | 整理训练过程中的 loss 与 accuracy |
 | `matplotlib` | 绘制训练/验证曲线 |
-| `torchsummary` | 查看模型结构与参数规模 |
+| `torchsummary` | 查看模型结构和参数规模 |
+
+如果电脑支持 CUDA，代码会自动优先使用 GPU；如果没有 GPU，也可以直接在 CPU 上运行，只是训练速度会慢一些。
+
 
 ---
 
 ## 🚀 运行方式
 
-### 1. 训练模型
+因为 LeNet 和 AlexNet 分别放在不同文件夹中，所以运行时建议先进入对应目录，再执行训练或测试脚本。
+
+### 1. 训练 LeNet-5
 
 ```bash
+cd LeNet
 python model_train.py
 ```
 
-训练脚本完成的工作包括：
+训练完成后，会保存验证集表现最好的模型参数，并生成 LeNet 的训练/验证曲线。
 
-1. 下载并读取 FashionMNIST 训练集；
-2. 将 60000 张训练图片按照 `8:2` 划分为训练集和验证集；
-3. 使用 DataLoader 按 batch 加载数据；
-4. 完成前向传播、损失计算、反向传播和参数更新；
-5. 在每个 epoch 后计算训练集与验证集的 loss 和 accuracy；
-6. 保存验证集准确率最高的模型参数；
-7. 绘制训练曲线和验证曲线。
+### 2. 测试 LeNet-5
+
+```bash
+cd LeNet
+python model_test.py
+```
+
+测试脚本会加载训练阶段保存的最优模型参数，并在 FashionMNIST 测试集上计算准确率。
+
+### 3. 训练 AlexNet
+
+```bash
+cd AlexNet
+python model_train.py
+```
+
+AlexNet 的结构更深、参数更多，训练时间一般会比 LeNet 更长，但也能更直观地体会深层 CNN 的表达能力。
+
+### 4. 测试 AlexNet
+
+```bash
+cd AlexNet
+python model_test.py
+```
+
+测试阶段只进行前向传播，不会更新模型参数，因此代码中会使用 `model.eval()` 和 `torch.no_grad()`。
+
 
 ---
 
@@ -228,23 +293,24 @@ python model_test.py
 
 ## 🏋️ 训练流程详解
 
-训练代码的核心流程可以概括为：
+训练代码的整体思路并不复杂，但每一步都很关键。我的理解是：模型训练不是一次性得到结果，而是不断重复“预测、计算误差、反向传播、更新参数”的过程。
 
 ```mermaid
 flowchart TD
-    A[读取 FashionMNIST] --> B[划分训练集和验证集]
-    B --> C[DataLoader 批量加载]
-    C --> D[model.train]
-    D --> E[前向传播]
-    E --> F[计算 CrossEntropyLoss]
-    F --> G[optimizer.zero_grad]
-    G --> H[loss.backward]
-    H --> I[optimizer.step]
-    I --> J[统计训练 loss 和 acc]
-    J --> K[model.eval]
-    K --> L[验证集前向传播]
-    L --> M[保存最佳模型参数]
-    M --> N[绘制训练曲线]
+    A[进入 LeNet 或 AlexNet 文件夹] --> B[读取 FashionMNIST 数据集]
+    B --> C[划分训练集和验证集]
+    C --> D[DataLoader 按 batch 加载数据]
+    D --> E[model.train 进入训练模式]
+    E --> F[前向传播得到预测结果]
+    F --> G[计算 CrossEntropyLoss]
+    G --> H[optimizer.zero_grad 清空梯度]
+    H --> I[loss.backward 反向传播]
+    I --> J[optimizer.step 更新参数]
+    J --> K[统计 train loss 和 train acc]
+    K --> L[model.eval 进入验证模式]
+    L --> M[验证集前向传播并计算 val acc]
+    M --> N[保存验证集表现最好的模型]
+    N --> O[绘制 loss/accuracy 曲线]
 ```
 
 本项目训练配置：
@@ -270,28 +336,43 @@ flowchart TD
 - 20 个 epoch 约 1880 次验证 batch 评估；
 - 测试阶段对 10000 张测试图片进行最终评估。
 
-这些数字让我直观感受：  
-**训练模型不是一次简单的函数调用，而是成千上万次“预测—计算损失—反向传播—参数更新”的循环。**
+这些数字让我直观感受到：  
+**训练模型不是简单点击运行，而是成千上万次“预测—计算损失—反向传播—参数更新”的循环。**
+
 
 ---
 
-## 📊 实验结果记录
+## 📊 训练曲线与结果分析
 
-训练脚本会记录以下指标：
+<p align="center">
+  <img src="./LeNet/LeNet_train_val_loss_acc.png" width="430" alt="LeNet training curve">
+  <img src="./AlexNet/AlexNet_train_val_loss_acc.png" width="430" alt="AlexNet training curve">
+</p>
 
-| 指标 | 含义 |
-|---|---|
-| `train_loss_all` | 每个 epoch 的训练集平均损失 |
-| `val_loss_all` | 每个 epoch 的验证集平均损失 |
-| `train_acc_all` | 每个 epoch 的训练集准确率 |
-| `val_acc_all` | 每个 epoch 的验证集准确率 |
+<p align="center">
+  <img src="./assets/images/lenet_train_result.png" width="430" alt="LeNet training result">
+  <img src="./assets/images/alexnet_train_result.png" width="430" alt="AlexNet training result">
+</p>
 
-建议在实际运行后，将最优结果填写到下表中：
 
-| 模型 | 数据集 | Epoch | Best Val Acc | Test Acc | 备注 |
-|---|---:|---:|---:|---:|---|
-| LeNet-5 | FashionMNIST | 20 | 待填写 | 85.87% | 基础 CNN 实战 |
-| AlexNet | FashionMNIST | 20 | 待填写 | 89.93% | 更深网络对比实验 |
+
+从训练曲线里能看到两个阶段：
+
+### LeNet-5 的训练感受
+
+LeNet 的 loss 整体稳定下降，accuracy 也逐步上升，说明它确实在学习。  
+不过它的上限相对有限，毕竟结构比较轻量，对 FashionMNIST 这种比手写数字更复杂的数据集来说，表达能力会受到一些限制。
+
+### AlexNet 的训练感受
+
+AlexNet 的训练集准确率更高，测试集表现也更好，但从曲线看，验证集 loss 后期会有波动。  
+这让我第一次比较直观地感受到：  
+**模型更强不一定永远更省心，参数越多，越要小心过拟合。**
+
+| 模型    |       数据集 | Epoch | Test Acc | 我的理解                                 |
+| ------- | -----------: | ----: | -------: | ---------------------------------------- |
+| LeNet-5 | FashionMNIST |    20 |   85.87% | 结构清楚、适合入门，但表达能力有限       |
+| AlexNet | FashionMNIST |    20 |   89.93% | 能力更强，但更需要关注过拟合和训练稳定性 |
 
 ---
 
@@ -301,7 +382,7 @@ flowchart TD
 
 ### 1. 训练模型不是运行代码，而是理解数据如何流动
 
-一开始我容易把训练理解成“写好模型，然后点击运行”。但真正写训练代码后，我发现每一步都很关键：
+真正当我写训练代码时，我发现每一步都很关键：
 
 - 图片如何从 PIL 图像变成 Tensor；
 - Tensor 的形状为什么是 `[batch_size, channel, height, width]`；
@@ -403,7 +484,7 @@ AlexNet 让我看到深度 CNN 真正走向大规模应用需要更多条件：
 - 更有效的防过拟合方法；
 - 更系统的训练策略。
 
-从这个角度看，AlexNet 的意义不只是“模型更深”，而是它把深度学习从经典 CNN 推向了大规模视觉识别时代。
+从这个角度看，AlexNet 的意义不只是更深，而是它把深度学习从经典 CNN 推向了大规模视觉识别时代。
 
 ---
 
@@ -438,7 +519,7 @@ AlexNet 让我看到深度 CNN 真正走向大规模应用需要更多条件：
 | 代码注释 | 对关键训练步骤添加详细注释，方便复习和二次学习 |
 | 训练复盘 | 总结 loss、accuracy、验证集、过拟合、模型泛化等训练感悟 |
 
-从上传代码统计看，训练、模型和测试相关代码合计约 **480 行**。  
+从上传代码统计看，训练、模型和测试相关代码合计约 480 行。  
 更重要的是，这些代码背后包含了完整的深度学习训练流程，而不是零散的函数调用。
 
 ---
@@ -447,7 +528,7 @@ AlexNet 让我看到深度 CNN 真正走向大规模应用需要更多条件：
 
 后续我希望继续完善这个项目：
 
-- [ ] 将 LeNet 与 AlexNet 拆分到不同模型文件，优化项目结构；
+- [x] 将 LeNet 与 AlexNet 分别整理到独立文件夹，优化项目结构；
 - [ ] 增加随机种子，提升实验可复现性；
 - [ ] 增加 `Normalize` 数据标准化；
 - [ ] 保存训练日志为 CSV 文件；
