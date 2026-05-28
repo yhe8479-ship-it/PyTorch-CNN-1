@@ -3,7 +3,7 @@
 ![项目封面](./assets/images/front-cover.png)
 
 > **从全连接网络到卷积神经网络，从论文阅读到代码训练。**  
-> 本项目围绕 CNN 的核心思想、LeNet-5 的经典结构、AlexNet 的关键创新，以及基于 FashionMNIST 的模型训练流程展开。它不仅是一份代码实践，更是一段把“公式、论文、PPT、代码、训练日志”逐渐串起来的学习记录。
+> 本项目围绕 CNN 的核心思想、LeNet-5 的经典结构、AlexNet 的关键创新，以及基于 FashionMNIST 的模型训练流程展开。它不仅是一份代码实践，更是一段把公式、论文、PPT、代码、训练日志逐渐串起来的学习记录。
 
 ---
 
@@ -44,7 +44,7 @@
 
 ## 🧠 学习主线
 
-我把整个学习过程拆成了四条线索：
+我把整个学习过程拆成了以下线索：
 
 ```mermaid
 flowchart LR
@@ -57,9 +57,6 @@ flowchart LR
     F --> G[FashionMNIST 训练与验证]
     G --> H[测试集评估与训练反思]
 ```
-
-这条主线让我明白：  
-**CNN 的优势在于：它把图像的局部性、空间结构、权重共享这些先验知识写进了网络结构里。**
 
 ---
 
@@ -93,6 +90,7 @@ CNN 的思路就自然很多：
 | 感受野 | 网络越深，后面神经元能看到的原图区域越大 |
 
 我逐渐认识到很多，如：  
+
 **卷积层不是简单地压缩图片，而是在保留空间结构的前提下提取局部特征；**
 
 **池化层也不是随便降维，而是在牺牲部分精确位置的同时换取更强的鲁棒性。**
@@ -134,13 +132,15 @@ flowchart LR
 **搭建模型的过程中，我意识到每一层的网络参数要搞清楚，不然后面训练一定要出问题。**
 
 而搞清楚参数值需要熟记重要公式：
+
 $$
-OW = \frac{W + 2P - FW}{S} + 1
+O_W = \left\lfloor \frac{W + 2P - F_W}{S} \right\rfloor + 1
 $$
 
 $$
-OH = \frac{H + 2P - FH}{S} + 1
+O_H = \left\lfloor \frac{H + 2P - F_H}{S} \right\rfloor + 1
 $$
+
 **在卷积神经网络中，输入图像经过卷积层后，输出特征图的高和宽可以通过此公式计算。**
 
 ---
@@ -227,7 +227,7 @@ pip install torch torchvision pandas matplotlib torchsummary
 | `matplotlib` | 绘制训练/验证曲线 |
 | `torchsummary` | 查看模型结构和参数规模 |
 
-如果电脑支持 CUDA，代码会自动优先使用 GPU；如果没有 GPU，也可以直接在 CPU 上运行，只是训练速度会慢一些。
+如果电脑支持 CUDA，代码会自动优先使用 GPU；如果没有 GPU，也可以直接在 CPU 上运行，只是训练速度会慢一些~
 
 
 ---
@@ -336,18 +336,13 @@ flowchart TD
 - 20 个 epoch 约 1880 次验证 batch 评估；
 - 测试阶段对 10000 张测试图片进行最终评估。
 
-这些数字让我直观感受到：  
+这让我直观感受到：  
 **训练模型不是简单点击运行，而是成千上万次“预测—计算损失—反向传播—参数更新”的循环。**
 
 
 ---
 
 ## 📊 训练曲线与结果分析
-
-<p align="center">
-  <img src="./LeNet/LeNet_train_val_loss_acc.png" width="430" alt="LeNet training curve">
-  <img src="./AlexNet/AlexNet_train_val_loss_acc.png" width="430" alt="AlexNet training curve">
-</p>
 
 <p align="center">
   <img src="./assets/images/lenet_train_result.png" width="430" alt="LeNet training result">
@@ -378,7 +373,6 @@ AlexNet 的训练集准确率更高，测试集表现也更好，但从曲线看
 
 ## 💡 训练模型的感悟与收获
 
-我做完整个项目后，最深刻的体会：
 
 ### 1. 训练模型不是运行代码，而是理解数据如何流动
 
@@ -398,7 +392,7 @@ AlexNet 的训练集准确率更高，测试集表现也更好，但从曲线看
 ### 2. Loss 下降的背后，是参数在一点点被修正
 
 训练过程中最有成就感的时刻，是看到 loss 慢慢下降、accuracy 慢慢上升。  
-但这背后不是“模型突然变聪明了”，而是每一次 batch 都在做同样的事情：
+但这背后不是模型突然“变聪明”了，而是每一次 batch 都在做同样的事情：
 
 1. 前向传播得到预测；
 2. 用交叉熵损失衡量预测错误程度；
@@ -536,7 +530,7 @@ AlexNet 让我看到深度 CNN 真正走向大规模应用需要更多条件：
 - [ ] 加入单张图片预测可视化；
 - [ ] 对比 LeNet 与 AlexNet 在 FashionMNIST 上的训练时间和准确率；
 - [ ] 尝试数据增强，观察是否能提升验证集表现；
-- [ ] 使用 GPU 训练更深模型，进一步理解算力对深度学习的影响。
+- [x] 使用 GPU 训练更深模型，进一步理解算力对深度学习的影响。
 
 ---
 
